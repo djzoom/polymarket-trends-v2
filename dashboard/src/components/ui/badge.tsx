@@ -2,15 +2,15 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-sm px-2 py-0.5 text-xs font-medium font-tabular",
+  "tag font-tabular",
   {
     variants: {
       variant: {
-        bull: "bg-bull-bg text-bull border border-bull-border",
-        bear: "bg-bear-bg text-bear border border-bear-border",
-        neutral: "bg-neutral-bg text-neutral border border-neutral-border",
-        warning: "bg-warning-bg text-warning",
-        accent: "bg-accent-bg text-accent",
+        bull:    "tag-bull",
+        bear:    "tag-bear",
+        neutral: "tag-neutral",
+        warning: "tag-warning",
+        accent:  "text-accent border-accent/15 bg-accent-bg",
       },
     },
     defaultVariants: { variant: "neutral" },

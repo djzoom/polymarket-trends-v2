@@ -1,67 +1,88 @@
 @import "tailwindcss";
 
 /* ============================================================
-   POLYMARKET TRENDS — 全局 Design Tokens（暗色科技风）
+   POLYMARKET TRENDS TERMINAL — Design System v2
+   风格：HFT Cold Terminal（极度冷酷 · 纯黑 · CRT荧光 · 零圆角）
+
+   ██████╗  ██████╗ ██╗  ██╗   ██╗████████╗██████╗ ███████╗███╗   ██╗██████╗ ███████╗
+   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝╚══██╔══╝██╔══██╗██╔════╝████╗  ██║██╔══██╗██╔════╝
+   ██████╔╝██║   ██║██║   ╚████╔╝    ██║   ██████╔╝█████╗  ██╔██╗ ██║██║  ██║███████╗
+   ██╔═══╝ ██║   ██║██║    ╚██╔╝     ██║   ██╔══██╗██╔══╝  ██║╚██╗██║██║  ██║╚════██║
+   ██║     ╚██████╔╝███████╗██║      ██║   ██║  ██║███████╗██║ ╚████║██████╔╝███████║
+   ╚═╝      ╚═════╝ ╚══════╝╚═╝      ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝
 
    强制规则：
-   1. 所有颜色必须通过 CSS 变量引用，禁止硬编码 hex/rgb
-   2. 所有间距使用 Tailwind spacing scale（4px 倍数）
-   3. 所有圆角使用 --radius 变量
-   4. 所有字体使用 --font-mono（等宽）或 --font-sans
+   1. 所有颜色通过 CSS 变量，禁止硬编码
+   2. 间距 4px 网格
+   3. 零圆角 — 终端不需要圆角
+   4. 等宽字体 — 一切皆数据
    ============================================================ */
 
 /* ── 色彩系统 ─────────────────────────────────────────────── */
 :root {
-  /* 基础 */
-  --background:       #0a0b0f;
-  --background-alt:   #0f1117;
-  --surface:          #151720;
-  --surface-hover:    #1a1d2a;
-  --surface-active:   #1f2333;
-  --border:           #1e2235;
-  --border-hover:     #2a2f45;
+  /* 纯黑基底 — 比 #0a0b0f 更暗 */
+  --background:       #050507;
+  --background-alt:   #08090d;
+  --surface:          #0c0d12;
+  --surface-hover:    #111318;
+  --surface-active:   #16181f;
+  --border:           #1a1c24;
+  --border-hover:     #252830;
 
-  /* 文字 */
-  --foreground:       #e8eaf0;
-  --foreground-muted: #7a7f96;
-  --foreground-dim:   #4a4f65;
+  /* 文字 — 低亮度主色，高对比数据 */
+  --foreground:       #c8cad0;
+  --foreground-muted: #555a6e;
+  --foreground-dim:   #2e3142;
 
-  /* 语义色：涨/跌/中性 */
-  --bull:             #00e676;
-  --bull-bg:          rgba(0, 230, 118, 0.08);
-  --bull-border:      rgba(0, 230, 118, 0.20);
-  --bear:             #ff1744;
-  --bear-bg:          rgba(255, 23, 68, 0.08);
-  --bear-border:      rgba(255, 23, 68, 0.20);
-  --neutral:          #448aff;
-  --neutral-bg:       rgba(68, 138, 255, 0.08);
-  --neutral-border:   rgba(68, 138, 255, 0.20);
+  /* 终端绿 — 主信号色（涨/YES） */
+  --bull:             #00ff88;
+  --bull-muted:       #00cc6a;
+  --bull-bg:          rgba(0, 255, 136, 0.05);
+  --bull-border:      rgba(0, 255, 136, 0.15);
+  --bull-glow:        0 0 8px rgba(0, 255, 136, 0.3);
 
-  /* 强调/高亮 */
-  --accent:           #7c4dff;
-  --accent-hover:     #651fff;
-  --accent-bg:        rgba(124, 77, 255, 0.10);
+  /* 警报红（跌/NO） */
+  --bear:             #ff2d55;
+  --bear-muted:       #cc2444;
+  --bear-bg:          rgba(255, 45, 85, 0.05);
+  --bear-border:      rgba(255, 45, 85, 0.15);
+  --bear-glow:        0 0 8px rgba(255, 45, 85, 0.3);
 
-  /* 警告/信息 */
-  --warning:          #ffab00;
-  --warning-bg:       rgba(255, 171, 0, 0.08);
+  /* 冰蓝 — 中性/信息 */
+  --neutral:          #00d4ff;
+  --neutral-bg:       rgba(0, 212, 255, 0.05);
+  --neutral-border:   rgba(0, 212, 255, 0.15);
+  --neutral-glow:     0 0 8px rgba(0, 212, 255, 0.3);
+
+  /* 电紫 — 强调/高优先级 */
+  --accent:           #8b5cf6;
+  --accent-hover:     #7c3aed;
+  --accent-bg:        rgba(139, 92, 246, 0.06);
+  --accent-glow:      0 0 8px rgba(139, 92, 246, 0.3);
+
+  /* 琥珀 — 警告 */
+  --warning:          #ffa500;
+  --warning-bg:       rgba(255, 165, 0, 0.05);
+  --warning-glow:     0 0 8px rgba(255, 165, 0, 0.3);
+
+  /* 信息蓝 */
   --info:             #00b0ff;
-  --info-bg:          rgba(0, 176, 255, 0.08);
+  --info-bg:          rgba(0, 176, 255, 0.05);
 
   /* 布局 */
-  --sidebar-width:    260px;
-  --header-height:    56px;
-  --panel-gap:        12px;
-  --radius:           6px;
-  --radius-sm:        4px;
-  --radius-lg:        10px;
+  --sidebar-width:    220px;
+  --header-height:    40px;
+  --panel-gap:        8px;
+  --radius:           0px;
+  --radius-sm:        0px;
+  --radius-lg:        2px;
 
-  /* 动效 */
-  --transition-fast:  120ms ease-out;
-  --transition-base:  200ms ease-out;
+  /* 动效 — 极速 */
+  --transition-fast:  80ms linear;
+  --transition-base:  150ms linear;
 }
 
-/* ── Tailwind v4 Theme Inline ────────────────────────────── */
+/* ── Tailwind v4 Theme ───────────────────────────────────── */
 @theme inline {
   --color-background:      var(--background);
   --color-background-alt:  var(--background-alt);
@@ -104,50 +125,123 @@
 
 /* ── 全局基础样式 ────────────────────────────────────────── */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-hover) transparent;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: rgba(0, 255, 136, 0.15);
+  color: var(--bull);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: ui-monospace, "SF Mono", "Cascadia Code", "Consolas", monospace;
+  font-size: 12px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── 强制排版规则：标题层级 ──────────────────────────────── */
-/* H1：仅用于页面标题，每页最多1个 */
-h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.025em; }
+/* ── CRT 扫描线覆盖层 ───────────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
 
-/* H2：模块/Panel 标题 */
-h2 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; }
+/* ── 标题层级 ────────────────────────────────────────────── */
+h1 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
 
-/* H3：卡片/子区域标题 */
-h3 { font-size: 0.9375rem; font-weight: 500; }
+h2 {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground-muted);
+}
 
-/* H4：最小标题，标签 */
-h4 { font-size: 0.8125rem; font-weight: 500; color: var(--foreground-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+h3 {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
 
-/* ── 数据展示强制规则 ────────────────────────────────────── */
-/* 所有数字使用 tabular-nums，防止数字跳动 */
+h4 {
+  font-size: 0.625rem;
+  font-weight: 500;
+  color: var(--foreground-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ── 数据规则 ────────────────────────────────────────────── */
 [data-numeric],
 .font-tabular {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+  letter-spacing: 0.02em;
 }
 
-/* 涨跌色自动应用 */
-[data-trend="up"]   { color: var(--bull); }
-[data-trend="down"] { color: var(--bear); }
-[data-trend="flat"] { color: var(--foreground-muted); }
+/* 涨跌色 + 荧光 */
+[data-trend="up"] {
+  color: var(--bull);
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.25);
+}
 
-/* ── 面板/卡片 ───────────────────────────────────────────── */
+[data-trend="down"] {
+  color: var(--bear);
+  text-shadow: 0 0 6px rgba(255, 45, 85, 0.25);
+}
+
+[data-trend="flat"] {
+  color: var(--foreground-dim);
+}
+
+/* ── 面板 ────────────────────────────────────────────────── */
 .panel {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
+  border-radius: 0;
+  padding: 12px;
+  position: relative;
+}
+
+/* 左侧高亮竖线 — 终端指示条 */
+.panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-hover);
+  transition: background 150ms linear;
+}
+
+.panel:hover::before {
+  background: var(--bull);
+  box-shadow: var(--bull-glow);
 }
 
 .panel:hover {
@@ -158,8 +252,8 @@ h4 { font-size: 0.8125rem; font-weight: 500; color: var(--foreground-muted); tex
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -167,52 +261,132 @@ h4 { font-size: 0.8125rem; font-weight: 500; color: var(--foreground-muted); tex
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.8125rem;
+  font-size: 11px;
 }
 
 th {
   text-align: left;
-  color: var(--foreground-muted);
-  font-weight: 500;
+  color: var(--foreground-dim);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 0.6875rem;
-  padding: 8px 12px;
+  letter-spacing: 0.1em;
+  font-size: 10px;
+  padding: 6px 8px;
   border-bottom: 1px solid var(--border);
+  white-space: nowrap;
 }
 
 td {
-  padding: 10px 12px;
+  padding: 6px 8px;
   border-bottom: 1px solid var(--border);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+tr {
+  transition: background 80ms linear;
 }
 
 tr:hover td {
   background: var(--surface-hover);
 }
 
+/* 行号前缀感（可选） */
+tbody tr {
+  counter-increment: row-num;
+}
+
 /* ── 状态指示灯 ──────────────────────────────────────────── */
 .status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 0;
   display: inline-block;
 }
 
-.status-dot[data-status="live"]    { background: var(--bull);    box-shadow: 0 0 6px var(--bull); }
-.status-dot[data-status="stale"]   { background: var(--warning); box-shadow: 0 0 6px var(--warning); }
-.status-dot[data-status="offline"] { background: var(--bear);    box-shadow: 0 0 6px var(--bear); }
+.status-dot[data-status="live"] {
+  background: var(--bull);
+  box-shadow: var(--bull-glow);
+  animation: pulse-live 2s ease-in-out infinite;
+}
 
-/* ── 闪烁动画（价格更新时） ──────────────────────────────── */
+.status-dot[data-status="stale"] {
+  background: var(--warning);
+  box-shadow: var(--warning-glow);
+}
+
+.status-dot[data-status="offline"] {
+  background: var(--bear);
+  box-shadow: var(--bear-glow);
+}
+
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* ── 闪烁动画 ────────────────────────────────────────────── */
 @keyframes flash-green {
-  0%   { background-color: var(--bull-bg); }
+  0%   { background-color: rgba(0, 255, 136, 0.12); }
   100% { background-color: transparent; }
 }
 
 @keyframes flash-red {
-  0%   { background-color: var(--bear-bg); }
+  0%   { background-color: rgba(255, 45, 85, 0.12); }
   100% { background-color: transparent; }
 }
 
-.flash-up   { animation: flash-green 0.6s ease-out; }
-.flash-down { animation: flash-red   0.6s ease-out; }
+.flash-up   { animation: flash-green 0.4s linear; }
+.flash-down { animation: flash-red   0.4s linear; }
+
+/* ── 终端光标闪烁 ────────────────────────────────────────── */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink-cursor 1s step-end infinite;
+}
+
+/* ── 标签/TAG ────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid;
+  border-radius: 0;
+}
+
+.tag-bull    { color: var(--bull);    border-color: var(--bull-border);    background: var(--bull-bg); }
+.tag-bear    { color: var(--bear);    border-color: var(--bear-border);    background: var(--bear-bg); }
+.tag-neutral { color: var(--neutral); border-color: var(--neutral-border); background: var(--neutral-bg); }
+.tag-warning { color: var(--warning); border-color: rgba(255,165,0,0.15);  background: var(--warning-bg); }
+
+/* ── 数值高亮格 ──────────────────────────────────────────── */
+.cell-highlight {
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-hover);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 水平分隔线 ──────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+
+/* ── 容器网格线背景 ──────────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+}

@@ -14,11 +14,14 @@ export function PageHeader({
   className,
 }: PageHeaderProps) {
   return (
-    <div className={cn("mb-4 flex items-center justify-between", className)}>
-      <div>
+    <div className={cn("mb-3 flex items-center justify-between", className)}>
+      <div className="flex items-center gap-3">
+        <span style={{ color: "var(--bull)", fontSize: "10px" }}>{">"}</span>
         <h1>{title}</h1>
         {description && (
-          <p className="mt-1 text-sm text-foreground-muted">{description}</p>
+          <span className="text-xs text-foreground-dim tracking-wide">
+            // {description}
+          </span>
         )}
       </div>
       {children && <div className="flex items-center gap-2">{children}</div>}

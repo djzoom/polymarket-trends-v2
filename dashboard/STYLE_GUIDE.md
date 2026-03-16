@@ -1,10 +1,19 @@
 # Dashboard 强制风格排版规则 & 内容添加规则
 
-> 所有为此 dashboard 贡献的代码（人工或 AI）必须遵守以下规则。违反规则的 PR 不予合并。
+> **HFT Cold Terminal** — 所有代码必须遵守以下规则。违反规则的 PR 不予合并。
 
 ---
 
 ## 一、风格排版规则（强制）
+
+### 1.0 设计原则
+
+- **纯黑基底** — 背景色 `#050507`，不是深灰，是接近纯黑
+- **零圆角** — 所有 `border-radius: 0`，终端不需要圆角
+- **CRT 扫描线** — `body::after` 全局覆盖扫描线纹理
+- **荧光色数据** — 涨跌数据带 `text-shadow` 荧光效果
+- **极小字号** — 基础 12px，表格 11px，标签 10px（数据密度优先）
+- **等宽字体** — 全局 monospace，一切皆数据
 
 ### 1.1 色彩系统
 
@@ -19,15 +28,16 @@
 
 | 用途 | CSS 变量 | Tailwind class | Hex 值 |
 |---|---|---|---|
-| 背景-主 | `--background` | `bg-background` | `#0a0b0f` |
-| 背景-次 | `--background-alt` | `bg-background-alt` | `#0f1117` |
-| 面板 | `--surface` | `bg-surface` | `#151720` |
-| 面板悬停 | `--surface-hover` | `bg-surface-hover` | `#1a1d2a` |
-| 边框 | `--border` | `border-border` | `#1e2235` |
-| 主文字 | `--foreground` | `text-foreground` | `#e8eaf0` |
-| 次要文字 | `--foreground-muted` | `text-foreground-muted` | `#7a7f96` |
-| 涨/YES | `--bull` | `text-bull` | `#00e676` |
-| 跌/NO | `--bear` | `text-bear` | `#ff1744` |
+| 背景-主 | `--background` | `bg-background` | `#050507` |
+| 背景-次 | `--background-alt` | `bg-background-alt` | `#08090d` |
+| 面板 | `--surface` | `bg-surface` | `#0c0d12` |
+| 面板悬停 | `--surface-hover` | `bg-surface-hover` | `#111318` |
+| 边框 | `--border` | `border-border` | `#1a1c24` |
+| 主文字 | `--foreground` | `text-foreground` | `#c8cad0` |
+| 次要文字 | `--foreground-muted` | `text-foreground-muted` | `#555a6e` |
+| 暗文字 | `--foreground-dim` | `text-foreground-dim` | `#2e3142` |
+| 涨/YES | `--bull` | `text-bull` | `#00ff88` |
+| 跌/NO | `--bear` | `text-bear` | `#ff2d55` |
 | 中性 | `--neutral` | `text-neutral` | `#448aff` |
 | 强调 | `--accent` | `text-accent` | `#7c4dff` |
 | 警告 | `--warning` | `text-warning` | `#ffab00` |
@@ -67,10 +77,9 @@
 
 ### 1.5 圆角规则
 
-- 面板/卡片: `rounded-md`（6px）
-- 按钮/输入框: `rounded-sm`（4px）
-- 头像/状态点: `rounded-full`
-- 禁止使用 `rounded-none`（0）或 `rounded-3xl`
+- **所有元素：`border-radius: 0`（零圆角）**
+- 唯一例外：头像可用 `rounded-full`
+- 状态指示灯也是方形（5x5px 方块）
 
 ### 1.6 边框规则
 

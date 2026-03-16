@@ -11,7 +11,7 @@ export default function DashboardLayout({
       <Sidebar />
       <Header />
       <main
-        className="p-4"
+        className="p-2"
         style={{
           marginLeft: "var(--sidebar-width)",
           marginTop: "var(--header-height)",

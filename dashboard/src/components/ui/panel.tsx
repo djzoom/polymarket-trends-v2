@@ -4,7 +4,6 @@ import { StatusDot } from "./status-dot";
 /* ── Panel 容器 ─────────────────────────────────────────── */
 
 interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** 跨越 grid 列数 */
   colSpan?: 1 | 2 | 3 | 4;
 }
 
@@ -49,8 +48,8 @@ export function PanelHeader({
   return (
     <div className={cn("panel-header", className)}>
       <div className="flex items-center gap-2">
-        <h2>{title}</h2>
         {status && <StatusDot status={status} />}
+        <h2>{title}</h2>
       </div>
       {children}
     </div>
