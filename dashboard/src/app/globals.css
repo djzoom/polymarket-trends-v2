@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+/* ============================================================
+   POLYMARKET TRENDS — 全局 Design Tokens（暗色科技风）
+
+   强制规则：
+   1. 所有颜色必须通过 CSS 变量引用，禁止硬编码 hex/rgb
+   2. 所有间距使用 Tailwind spacing scale（4px 倍数）
+   3. 所有圆角使用 --radius 变量
+   4. 所有字体使用 --font-mono（等宽）或 --font-sans
+   ============================================================ */
+
+/* ── 色彩系统 ─────────────────────────────────────────────── */
+:root {
+  /* 基础 */
+  --background:       #0a0b0f;
+  --background-alt:   #0f1117;
+  --surface:          #151720;
+  --surface-hover:    #1a1d2a;
+  --surface-active:   #1f2333;
+  --border:           #1e2235;
+  --border-hover:     #2a2f45;
+
+  /* 文字 */
+  --foreground:       #e8eaf0;
+  --foreground-muted: #7a7f96;
+  --foreground-dim:   #4a4f65;
+
+  /* 语义色：涨/跌/中性 */
+  --bull:             #00e676;
+  --bull-bg:          rgba(0, 230, 118, 0.08);
+  --bull-border:      rgba(0, 230, 118, 0.20);
+  --bear:             #ff1744;
+  --bear-bg:          rgba(255, 23, 68, 0.08);
+  --bear-border:      rgba(255, 23, 68, 0.20);
+  --neutral:          #448aff;
+  --neutral-bg:       rgba(68, 138, 255, 0.08);
+  --neutral-border:   rgba(68, 138, 255, 0.20);
+
+  /* 强调/高亮 */
+  --accent:           #7c4dff;
+  --accent-hover:     #651fff;
+  --accent-bg:        rgba(124, 77, 255, 0.10);
+
+  /* 警告/信息 */
+  --warning:          #ffab00;
+  --warning-bg:       rgba(255, 171, 0, 0.08);
+  --info:             #00b0ff;
+  --info-bg:          rgba(0, 176, 255, 0.08);
+
+  /* 布局 */
+  --sidebar-width:    260px;
+  --header-height:    56px;
+  --panel-gap:        12px;
+  --radius:           6px;
+  --radius-sm:        4px;
+  --radius-lg:        10px;
+
+  /* 动效 */
+  --transition-fast:  120ms ease-out;
+  --transition-base:  200ms ease-out;
+}
+
+/* ── Tailwind v4 Theme Inline ────────────────────────────── */
+@theme inline {
+  --color-background:      var(--background);
+  --color-background-alt:  var(--background-alt);
+  --color-surface:         var(--surface);
+  --color-surface-hover:   var(--surface-hover);
+  --color-surface-active:  var(--surface-active);
+  --color-border:          var(--border);
+  --color-border-hover:    var(--border-hover);
+
+  --color-foreground:       var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-dim:   var(--foreground-dim);
+
+  --color-bull:            var(--bull);
+  --color-bull-bg:         var(--bull-bg);
+  --color-bull-border:     var(--bull-border);
+  --color-bear:            var(--bear);
+  --color-bear-bg:         var(--bear-bg);
+  --color-bear-border:     var(--bear-border);
+  --color-neutral:         var(--neutral);
+  --color-neutral-bg:      var(--neutral-bg);
+  --color-neutral-border:  var(--neutral-border);
+
+  --color-accent:          var(--accent);
+  --color-accent-hover:    var(--accent-hover);
+  --color-accent-bg:       var(--accent-bg);
+
+  --color-warning:         var(--warning);
+  --color-warning-bg:      var(--warning-bg);
+  --color-info:            var(--info);
+  --color-info-bg:         var(--info-bg);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-lg);
+}
+
+/* ── 全局基础样式 ────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-hover) transparent;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", "Consolas", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── 强制排版规则：标题层级 ──────────────────────────────── */
+/* H1：仅用于页面标题，每页最多1个 */
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.025em; }
+
+/* H2：模块/Panel 标题 */
+h2 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; }
+
+/* H3：卡片/子区域标题 */
+h3 { font-size: 0.9375rem; font-weight: 500; }
+
+/* H4：最小标题，标签 */
+h4 { font-size: 0.8125rem; font-weight: 500; color: var(--foreground-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ── 数据展示强制规则 ────────────────────────────────────── */
+/* 所有数字使用 tabular-nums，防止数字跳动 */
+[data-numeric],
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* 涨跌色自动应用 */
+[data-trend="up"]   { color: var(--bull); }
+[data-trend="down"] { color: var(--bear); }
+[data-trend="flat"] { color: var(--foreground-muted); }
+
+/* ── 面板/卡片 ───────────────────────────────────────────── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.panel:hover {
+  border-color: var(--border-hover);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── 表格 ────────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+th {
+  text-align: left;
+  color: var(--foreground-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+}
+
+tr:hover td {
+  background: var(--surface-hover);
+}
+
+/* ── 状态指示灯 ──────────────────────────────────────────── */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot[data-status="live"]    { background: var(--bull);    box-shadow: 0 0 6px var(--bull); }
+.status-dot[data-status="stale"]   { background: var(--warning); box-shadow: 0 0 6px var(--warning); }
+.status-dot[data-status="offline"] { background: var(--bear);    box-shadow: 0 0 6px var(--bear); }
+
+/* ── 闪烁动画（价格更新时） ──────────────────────────────── */
+@keyframes flash-green {
+  0%   { background-color: var(--bull-bg); }
+  100% { background-color: transparent; }
+}
+
+@keyframes flash-red {
+  0%   { background-color: var(--bear-bg); }
+  100% { background-color: transparent; }
+}
+
+.flash-up   { animation: flash-green 0.6s ease-out; }
+.flash-down { animation: flash-red   0.6s ease-out; }
